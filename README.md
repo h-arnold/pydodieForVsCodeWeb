@@ -210,7 +210,7 @@ See [docs/README.md](./docs/README.md) for complete documentation overview.
 
 | Technology | Purpose | Version |
 |-----------|---------|---------|
-| **Pyodide** | Python WebAssembly runtime | 0.25.0+ |
+| **Pyodide** | Python WebAssembly runtime | 0.29.1+ |
 | **VS Code API** | Extension framework | 1.85.0+ |
 | **TypeScript** | Type-safe development | 5.3.0+ |
 | **Webpack** | Module bundler | 5.89.0+ |
