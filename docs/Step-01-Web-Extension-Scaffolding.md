@@ -1,12 +1,15 @@
 # Step 1: Establish the Web Extension Scaffolding
 
 ## Overview
+
 Create a VS Code web extension project that targets the `webworker` environment, ensuring compatibility with VS Code for the Web (vscode.dev, github.dev). This foundation will support running Python via Pyodide in a browser-based Jupyter notebook environment.
 
 ## Research Summary
 
 ### Web Extension Architecture
+
 Based on [VS Code Web Extensions Guide](https://code.visualstudio.com/api/extension-guides/web-extensions):
+
 - Web extensions run in a **Web Worker** environment (not Node.js)
 - No access to Node.js APIs (`fs`, `child_process`, `os`, etc.)
 - Must use browser APIs (Fetch, Web Workers, IndexedDB)
@@ -14,6 +17,7 @@ Based on [VS Code Web Extensions Guide](https://code.visualstudio.com/api/extens
 - All dependencies must be bundled or externalized properly
 
 ### Key Constraints
+
 1. **Runtime Environment**: Web Worker (webworker target)
 2. **No Node.js APIs**: Must use browser-compatible alternatives
 3. **Bundling Required**: Extension must be a single JS bundle
@@ -23,23 +27,25 @@ Based on [VS Code Web Extensions Guide](https://code.visualstudio.com/api/extens
 ## Dependencies
 
 ### Build Dependencies
+
 ```json
 {
   "devDependencies": {
-    "@types/vscode": "^1.85.0",
-    "@types/node": "^20.x",
-    "typescript": "^5.3.0",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
-    "ts-loader": "^9.5.1",
-    "path-browserify": "^1.0.1",
-    "process": "^0.11.10",
-    "buffer": "^6.0.3"
+    "@types/vscode": "*",
+    "@types/node": "*",
+    "typescript": "*",
+    "webpack": "*",
+    "webpack-cli": "*",
+    "ts-loader": "*",
+    "path-browserify": "*",
+    "process": "*",
+    "buffer": "*"
   }
 }
 ```
 
 ### Runtime Dependencies
+
 ```json
 {
   "dependencies": {
@@ -49,11 +55,12 @@ Based on [VS Code Web Extensions Guide](https://code.visualstudio.com/api/extens
 ```
 
 ### Alternative: Using esbuild (faster alternative to Webpack)
+
 ```json
 {
   "devDependencies": {
-    "esbuild": "^0.19.0",
-    "esbuild-plugin-polyfill-node": "^0.3.0"
+    "esbuild": "*",
+    "esbuild-plugin-polyfill-node": "*"
   }
 }
 ```
@@ -92,10 +99,7 @@ pydodieForVsCodeWeb/
   "engines": {
     "vscode": "^1.85.0"
   },
-  "categories": [
-    "Notebooks",
-    "Data Science"
-  ],
+  "categories": ["Notebooks", "Data Science"],
   "keywords": [
     "python",
     "jupyter",
@@ -104,9 +108,7 @@ pydodieForVsCodeWeb/
     "webassembly",
     "notebookKernelJupyterNotebook"
   ],
-  "activationEvents": [
-    "onNotebook:jupyter-notebook"
-  ],
+  "activationEvents": ["onNotebook:jupyter-notebook"],
   "browser": "./dist/web/extension.js",
   "contributes": {
     "notebookRenderer": []
@@ -119,20 +121,21 @@ pydodieForVsCodeWeb/
     "test": "echo \"No tests yet\" && exit 0"
   },
   "devDependencies": {
-    "@types/vscode": "^1.85.0",
-    "@types/node": "^20.x",
-    "typescript": "^5.3.0",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
-    "ts-loader": "^9.5.1",
-    "path-browserify": "^1.0.1",
-    "process": "^0.11.10",
-    "buffer": "^6.0.3"
+    "@types/vscode": "*",
+    "@types/node": "*",
+    "typescript": "*",
+    "webpack": "*",
+    "webpack-cli": "*",
+    "ts-loader": "*",
+    "path-browserify": "*",
+    "process": "*",
+    "buffer": "*"
   }
 }
 ```
 
 **Key Points:**
+
 - `browser` field points to the web extension entry point (instead of `main`)
 - `activationEvents` includes `onNotebook:jupyter-notebook` for lazy activation
 - `notebookKernelJupyterNotebook` keyword for kernel discoverability
@@ -174,35 +177,35 @@ const webExtensionConfig = {
   mode: 'none',
   entry: {
     extension: './src/web/extension.ts',
-    'pyodide.worker': './src/web/pyodideWorker.ts'
+    'pyodide.worker': './src/web/pyodideWorker.ts',
   },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist', 'web'),
     libraryTarget: 'commonjs',
-    devtoolModuleFilenameTemplate: '../../[resource-path]'
+    devtoolModuleFilenameTemplate: '../../[resource-path]',
   },
   resolve: {
     mainFields: ['browser', 'module', 'main'],
     extensions: ['.ts', '.js'],
     alias: {
       // Polyfills for Node.js core modules
-      'path': 'path-browserify'
+      path: 'path-browserify',
     },
     fallback: {
       // Required for browser compatibility
-      'assert': require.resolve('assert/'),
-      'buffer': require.resolve('buffer/'),
-      'path': require.resolve('path-browserify'),
-      'process': require.resolve('process/browser'),
-      'fs': false,
-      'child_process': false,
-      'net': false,
-      'crypto': false,
-      'http': false,
-      'https': false,
-      'zlib': false
-    }
+      assert: require.resolve('assert/'),
+      buffer: require.resolve('buffer/'),
+      path: require.resolve('path-browserify'),
+      process: require.resolve('process/browser'),
+      fs: false,
+      child_process: false,
+      net: false,
+      crypto: false,
+      http: false,
+      https: false,
+      zlib: false,
+    },
   },
   module: {
     rules: [
@@ -211,31 +214,32 @@ const webExtensionConfig = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'ts-loader'
-          }
-        ]
-      }
-    ]
+            loader: 'ts-loader',
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new webpack.ProvidePlugin({
       process: 'process/browser',
-      Buffer: ['buffer', 'Buffer']
-    })
+      Buffer: ['buffer', 'Buffer'],
+    }),
   ],
   externals: {
-    'vscode': 'commonjs vscode' // VS Code API is provided at runtime
+    vscode: 'commonjs vscode', // VS Code API is provided at runtime
   },
   performance: {
-    hints: false
+    hints: false,
   },
-  devtool: 'source-map'
+  devtool: 'source-map',
 };
 
 module.exports = [webExtensionConfig];
 ```
 
 **Key Configuration Points:**
+
 - `target: 'webworker'` - Ensures code runs in Web Worker environment
 - `externals: { 'vscode': 'commonjs vscode' }` - VS Code API not bundled
 - `fallback` - Polyfills for Node.js modules
@@ -252,17 +256,17 @@ import * as vscode from 'vscode';
  * Called when the extension is activated
  */
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Pyodide Kernel extension is now active in web mode');
+  console.log('Pyodide Kernel extension is now active in web mode');
 
-    // Register the notebook controller (implemented in Step 3)
-    // const controller = registerNotebookController(context);
-    
-    // Register commands (implemented in Step 11)
-    // registerCommands(context, controller);
+  // Register the notebook controller (implemented in Step 3)
+  // const controller = registerNotebookController(context);
 
-    return {
-        // Export API if needed by other extensions
-    };
+  // Register commands (implemented in Step 11)
+  // registerCommands(context, controller);
+
+  return {
+    // Export API if needed by other extensions
+  };
 }
 
 /**
@@ -270,7 +274,7 @@ export function activate(context: vscode.ExtensionContext) {
  * Called when the extension is deactivated
  */
 export function deactivate() {
-    console.log('Pyodide Kernel extension deactivated');
+  console.log('Pyodide Kernel extension deactivated');
 }
 ```
 
@@ -281,29 +285,29 @@ export function deactivate() {
  * Message types for communication between extension host and Pyodide worker
  */
 export enum MessageType {
-    INIT = 'init',
-    RUN = 'run',
-    STDOUT = 'stdout',
-    STDERR = 'stderr',
-    RESULT = 'result',
-    ERROR = 'error',
-    INTERRUPT = 'interrupt'
+  INIT = 'init',
+  RUN = 'run',
+  STDOUT = 'stdout',
+  STDERR = 'stderr',
+  RESULT = 'result',
+  ERROR = 'error',
+  INTERRUPT = 'interrupt',
 }
 
 /**
  * Base message interface
  */
 export interface WorkerMessage {
-    type: MessageType;
-    id?: string;
+  type: MessageType;
+  id?: string;
 }
 
 /**
  * Configuration for Pyodide initialization
  */
 export interface PyodideConfig {
-    indexURL?: string;
-    packages?: string[];
+  indexURL?: string;
+  packages?: string[];
 }
 ```
 
@@ -388,12 +392,14 @@ dist/
 ## Development Workflow
 
 1. **Initial Setup**
+
    ```bash
    npm install
    npm run compile-web
    ```
 
 2. **Development Mode**
+
    ```bash
    npm run watch-web
    # In another terminal:
@@ -401,11 +407,12 @@ dist/
    ```
 
 3. **Testing in vscode.dev**
+
    ```bash
    # Build and serve locally
    npm run compile-web
    npx serve --cors -l 5000 .
-   
+
    # Open vscode.dev with local extension
    # https://vscode.dev/?extensionDevelopmentPath=http://localhost:5000
    ```
@@ -419,19 +426,25 @@ dist/
 ## Common Issues and Solutions
 
 ### Issue 1: "Module not found: Error: Can't resolve 'fs'"
+
 **Solution**: Add `fs: false` to webpack's `resolve.fallback` configuration.
 
 ### Issue 2: "process is not defined"
+
 **Solution**: Add `webpack.ProvidePlugin` to inject `process/browser`.
 
 ### Issue 3: Extension doesn't load in vscode.dev
-**Solution**: 
+
+**Solution**:
+
 - Verify `browser` field in package.json
 - Check CORS headers if serving locally
 - Ensure bundle is properly created in `dist/web/`
 
 ### Issue 4: Large bundle size
+
 **Solution**:
+
 - Use `externals` for VS Code API
 - Enable tree-shaking in production mode
 - Lazy-load heavy dependencies
@@ -440,6 +453,7 @@ dist/
 ## Next Steps
 
 After completing this step:
+
 1. Proceed to **Step 2**: Register the Kernel in package.json
 2. Verify the scaffolding works by loading the extension in vscode.dev
 3. Add telemetry and logging infrastructure if needed
