@@ -4,6 +4,10 @@
   "description": "Browser-based Python kernel for Jupyter notebooks powered by Pyodide",
   "version": "0.1.0",
   "publisher": "h-arnold",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/h-arnold/pyodideForVsCodeWeb.git"
+  },
   "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
