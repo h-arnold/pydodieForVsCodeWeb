@@ -91,7 +91,7 @@ module.exports = {
     'curly': ['error', 'all'],
     'brace-style': ['error', '1tbs'],
     'no-throw-literal': 'error',
-    'no-return-await': 'error',
+    '@typescript-eslint/return-await': ['error', 'in-try-catch'],
     'require-await': 'error',
 
     // Import Rules
