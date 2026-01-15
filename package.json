@@ -1,5 +1,5 @@
 {
-  "name": "pyodie-vscode-web",
+  "name": "pyodide-vscode-web",
   "displayName": "Pyodide Python Kernel for VS Code Web",
   "description": "Browser-based Python kernel for Jupyter notebooks powered by Pyodide",
   "version": "0.1.0",
