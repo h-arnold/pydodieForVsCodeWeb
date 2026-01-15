@@ -44,24 +44,24 @@
       }
     ]
   },
-  "scripts": {
-    "vscode:prepublish": "npm run package-web",
-    "compile": "tsc -p ./",
-    "compile-web": "webpack --mode development",
-    "watch": "webpack --mode development --watch",
-    "package-web": "webpack --mode production",
-    "lint": "eslint src test --ext ts",
-    "lint:fix": "eslint src test --ext ts --fix",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "format:check": "prettier --check \"src/**/*.ts\"",
+      "scripts": {
+        "vscode:prepublish": "npm run package-web",
+        "compile": "tsc -p ./",
+        "compile-web": "webpack --mode development",
+        "watch": "webpack --mode development --watch",
+        "package-web": "webpack --mode production",
+        "lint": "eslint src test --ext ts",
+        "lint:fix": "eslint src test --ext ts --fix",
+        "format": "prettier --write \"src/**/*.ts\"",
+        "format:check": "prettier --check \"src/**/*.ts\"",
     "test": "npm run compile && mocha",
-    "test:coverage": "nyc npm test",
-    "test:watch": "mocha --watch",
-    "typecheck": "tsc --noEmit",
-    "prepare": "husky || true",
-    "security:audit": "npm audit --audit-level=moderate",
-    "security:check": "snyk test || true"
-  },
+        "test:coverage": "nyc npm test",
+        "test:watch": "mocha --watch",
+        "typecheck": "tsc --noEmit",
+        "prepare": "husky || true",
+        "security:audit": "npm audit --audit-level=moderate",
+        "security:check": "snyk test"
+      },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/mocha": "^10.0.6",
