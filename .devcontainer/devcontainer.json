@@ -1,0 +1,29 @@
+{
+    "name": "pydodideForVsCodeWeb Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "VARIANT": "18"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "ms-python.python",
+                "ms-toolsai.jupyter"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        }
+    },
+    "postCreateCommand": "npm ci && npm run compile",
+    "forwardPorts": [
+        3000,
+        8080
+    ],
+    "features": {}
+}
