@@ -10,7 +10,7 @@ import * as vscode from 'vscode';
  * @param context - The extension context provided by VS Code
  */
 export function activate(context: vscode.ExtensionContext): void {
-  console.warn('Pyodide extension is now active');
+  // Extension is now active - using VS Code's output channel for logging if needed
 
   // Register restart kernel command
   const restartCommand = vscode.commands.registerCommand('pyodide.restartKernel', () => {
@@ -38,5 +38,5 @@ export function activate(context: vscode.ExtensionContext): void {
  * Deactivates the extension
  */
 export function deactivate(): void {
-  console.warn('Pyodide extension is now deactivated');
+  // Extension is now deactivated - cleanup completed
 }

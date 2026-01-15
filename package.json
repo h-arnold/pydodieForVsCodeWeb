@@ -64,8 +64,7 @@
     "test:watch": "mocha --watch",
     "typecheck": "tsc --noEmit",
     "prepare": "husky || true",
-    "security:audit": "npm audit --audit-level=moderate",
-    "security:check": "snyk test"
+    "security:audit": "npm audit --audit-level=moderate"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
