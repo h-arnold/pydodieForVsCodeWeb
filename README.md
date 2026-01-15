@@ -284,7 +284,7 @@ Please report security vulnerabilities privately to the maintainers. Do not open
 
 ## License
 
-[Specify License]
+This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
 
 ## Acknowledgments
 
