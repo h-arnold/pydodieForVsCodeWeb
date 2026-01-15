@@ -10,10 +10,13 @@ const webpack = require('webpack');
 /**@type {import('webpack').Configuration}*/
 const config = {
   target: 'webworker',
-  entry: './src/extension.ts',
+  entry: {
+    extension: './src/web/extension.ts',
+    'pyodide.worker': './src/web/pyodideWorker.ts',
+  },
   output: {
     path: path.resolve(__dirname, 'dist', 'web'),
-    filename: 'extension.js',
+    filename: '[name].js',
     libraryTarget: 'commonjs2',
     devtoolModuleFilenameTemplate: '../../[resource-path]',
   },
@@ -22,11 +25,23 @@ const config = {
     vscode: 'commonjs vscode',
   },
   resolve: {
+    mainFields: ['browser', 'module', 'main'],
     extensions: ['.ts', '.js'],
+    alias: {
+      path: 'path-browserify',
+    },
     fallback: {
+      assert: require.resolve('assert/'),
+      buffer: require.resolve('buffer/'),
       path: require.resolve('path-browserify'),
-      buffer: require.resolve('buffer'),
       process: require.resolve('process/browser'),
+      fs: false,
+      child_process: false,
+      net: false,
+      crypto: false,
+      http: false,
+      https: false,
+      zlib: false,
     },
   },
   module: {

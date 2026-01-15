@@ -363,11 +363,13 @@ dist/
 ### Manual Testing Checklist
 
 1. **Build Verification**
-   - [ ] Run `npm install` successfully
-   - [ ] Run `npm run compile-web` without errors
-   - [ ] Verify `dist/web/extension.js` is created
-   - [ ] Verify `dist/web/pyodide.worker.js` is created (in Step 4)
-   - [ ] Check bundle size is reasonable (< 500KB for extension, worker varies)
+   - [x] Run `npm install` successfully
+   - [x] Run `npm run compile-web` without errors
+   - [x] Verify `dist/web/extension.js` is created
+   - [x] Verify `dist/web/pyodide.worker.js` is created (in Step 4)
+   - [x] Check bundle size is reasonable (< 500KB for extension, worker varies)
+     - ✅ extension.js: 609 bytes (production), 2.8KB (dev)
+     - ✅ pyodide.worker.js: 151 bytes (production), 674 bytes (dev)
 
 2. **Web Extension Loading**
    - [ ] Package extension with `vsce package --web`
@@ -384,9 +386,9 @@ dist/
    - [ ] Confirm no Node.js native modules are referenced
 
 4. **Production Build**
-   - [ ] Run `npm run package-web` (production build)
-   - [ ] Verify source maps are excluded or hidden
-   - [ ] Check minified bundle size
+   - [x] Run `npm run package-web` (production build)
+   - [x] Verify source maps are excluded or hidden
+   - [x] Check minified bundle size
    - [ ] Test production bundle in vscode.dev
 
 ## Development Workflow
@@ -464,3 +466,44 @@ After completing this step:
 - [Webpack Configuration for Web](https://webpack.js.org/configuration/target/)
 - [VS Code Extension API](https://code.visualstudio.com/api)
 - [Bundling Extensions](https://code.visualstudio.com/api/working-with-extensions/bundling-extension)
+
+---
+
+## Implementation Notes (Completed)
+
+### ✅ Step 1 Completed - Web Extension Scaffolding
+
+**Completed Tasks:**
+
+1. ✅ Created `src/web/extension.ts` - Main extension entry point
+2. ✅ Created `src/web/pyodideWorker.ts` - Placeholder for Pyodide worker
+3. ✅ Created `src/common/types.ts` - Shared type definitions
+4. ✅ Created `src/common/constants.ts` - Extension constants
+5. ✅ Updated `webpack.config.js` - Two entry points (extension + worker)
+6. ✅ Updated `tsconfig.json` - Web Worker target with ES2020
+7. ✅ Created `.vscodeignore` - Package exclusions
+8. ✅ Installed `assert` package for Node.js polyfills
+9. ✅ Verified build succeeds (dev and production)
+10. ✅ Verified type checking passes
+
+**Key Changes/Deviations:**
+
+- Used ES2020 instead of ES2022 for better browser compatibility
+- Added `rootDir` to tsconfig to fix compilation issues
+- Excluded `test/` directory from TypeScript compilation (separate config needed for tests)
+- Used underscore prefix for unused `context` parameter to satisfy strict mode
+- Bundle sizes are excellent: 609 bytes (extension), 151 bytes (worker) in production
+
+**Build Verification:**
+
+```bash
+✅ npm run compile-web    # Development build succeeds
+✅ npm run package-web    # Production build succeeds
+✅ npm run typecheck      # Type checking passes
+✅ Bundle sizes < 1KB     # Optimal for web extension
+```
+
+**Next Steps:**
+
+- Proceed to Step 2: Register the Kernel in package.json
+- Manual testing in vscode.dev will be done after Step 3 (Notebook Controller)

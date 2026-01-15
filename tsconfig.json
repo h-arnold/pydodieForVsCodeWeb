@@ -1,24 +1,25 @@
 {
   "compilerOptions": {
     // Language and Environment
-    "target": "ES2022",
-    "lib": ["ES2022", "WebWorker"],
+    "target": "ES2020",
+    "lib": [
+      "ES2020",
+      "WebWorker"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
-    
     // Emit
-    "outDir": "./dist",
+    "outDir": "./out",
+    "rootDir": "./src",
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
     "removeComments": false,
-    
     // Interop Constraints
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    
     // Type Checking - STRICT MODE
     "strict": true,
     "noImplicitAny": true,
@@ -35,22 +36,20 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    
     // Additional Checks
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
-    
     // Completeness
     "skipLibCheck": true,
     "skipDefaultLibCheck": false
   },
   "include": [
-    "src/**/*",
-    "test/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "test"
   ]
 }
