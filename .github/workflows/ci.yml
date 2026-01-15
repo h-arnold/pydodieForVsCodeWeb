@@ -88,7 +88,6 @@ jobs:
 
       - name: Run npm audit
         run: npm run security:audit
-        continue-on-error: true
 
   build:
     name: Build Extension
