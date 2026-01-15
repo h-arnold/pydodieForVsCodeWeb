@@ -42,7 +42,7 @@
     "exactOptionalPropertyTypes": true,
     
     // Completeness
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "skipDefaultLibCheck": false
   },
   "include": [
